@@ -1,13 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { loadUser } from '../services/userStorage';
 
 
 export const useLoadApp = () => {
     const [isLoading, setLoading] = useState(true);
-    const isLoggedIn = false;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    React.useEffect(() => {
-        setTimeout(() => setLoading(false), 3000);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const value = await loadUser();
+                if (value) {
+                    console.log("Logged user data:", value);
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setIsLoggedIn(false);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchData();
     }, []);
 
     return { isLoading, isLoggedIn };

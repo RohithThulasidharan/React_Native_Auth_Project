@@ -1,17 +1,21 @@
 import React, { FC, useEffect, useState } from "react";
-import { View, Text, StatusBar, useColorScheme } from "react-native";
+import { View, Text, StatusBar, useColorScheme, Button, Alert } from "react-native";
 import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
-import { loadUser } from "../services/userStorage";
+import { loadUser, removeUser } from "../services/userStorage";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../config/navigation";
 
 
 export const HomeScreen: React.FC = () => {
     const safeAreaInsets = useSafeAreaInsets();
     const isDarkMode = useColorScheme() === 'dark';
 
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [name, setName] = useState<string>('Guest');
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const fetchData = async () => {
             try {
                 const value = await loadUser();
@@ -28,6 +32,18 @@ export const HomeScreen: React.FC = () => {
         fetchData();
 
     }, []);
+
+    React.useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Button onPress={async () => {
+                    await removeUser();
+                    Alert.alert("Successfully logged out!");
+                    navigation.replace("Login");
+                }} title="Log out" />
+            ),
+        });
+    }, [navigation]);
 
     return (
         <View>

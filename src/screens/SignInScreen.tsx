@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import React, { FC, useState } from "react";
+import React, { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../config/navigation";
@@ -27,9 +27,10 @@ export const SignInScreen: React.FC = () => {
 
         setIsLoading(true);
 
-        setTimeout(() => {
+        setTimeout(async () => {
             setIsLoading(false);
-            saveUser(username)
+            console.log("saveUser is", saveUser);
+            await saveUser(username);
             Alert.alert('Success', `Welcome back, ${username}!`);
             //navigation.navigate('Home');
             navigation.replace('Home');
