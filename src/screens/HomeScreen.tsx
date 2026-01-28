@@ -33,14 +33,16 @@ export const HomeScreen: React.FC = () => {
 
     }, []);
 
+    const logout = async () => {
+        await removeUser();
+        Alert.alert("Successfully logged out!");
+        navigation.replace("Login");
+    }
+
     React.useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <Button onPress={async () => {
-                    await removeUser();
-                    Alert.alert("Successfully logged out!");
-                    navigation.replace("Login");
-                }} title="Log out" />
+                <Button onPress={logout} title="Log out" />
             ),
         });
     }, [navigation]);
