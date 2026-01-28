@@ -12,7 +12,11 @@ function App() {
     );
   }
 
-  return <Navigation theme={MyTheme} />
+  return <Navigation theme={MyTheme} initialState={{
+    routes: [
+      { name: isLoggedIn ? "Home" : "Login" }
+    ]
+  }} />
 }
 
 const MyTheme = {
