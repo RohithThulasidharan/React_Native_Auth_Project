@@ -2,15 +2,21 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RootStackParamList } from "../config/navigation";
-import { saveUser } from "../services/userStorage";
+import { RootStackParamList } from "../../navigation/navigation";
+import { saveUser } from "../../services/userStorage";
+import { APP_SCREENS } from "../../constants/screenConstants";
+import appStyles from "../../styles/appStyles";
+import { useAuthContext } from "../../context/auth/useAuthContext";
 
 
 export const SignInScreen: React.FC = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { state, dispatch } = useAuthContext();
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -32,8 +38,7 @@ export const SignInScreen: React.FC = () => {
             console.log("saveUser is", saveUser);
             await saveUser(username);
             Alert.alert('Success', `Welcome back, ${username}!`);
-            //navigation.navigate('Home');
-            navigation.replace('Home');
+            dispatch({ type: 'LOGIN', payload: { username: username, token: username } });
         }, 2000);
     };
 
@@ -77,7 +82,7 @@ export const SignInScreen: React.FC = () => {
 
             {/* Login Button */}
             <TouchableOpacity
-                style={styles.loginButton}
+                style={appStyles.blueAppButton}
                 onPress={handleLogin}
                 disabled={isLoading}
                 activeOpacity={0.8}

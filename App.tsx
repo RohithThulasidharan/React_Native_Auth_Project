@@ -1,22 +1,15 @@
 import { DefaultTheme } from '@react-navigation/native';
-import { Navigation } from './src/config/navigation';
-import { useLoadApp } from './src/hooks/useLoadApp';
-import { SplashScreen } from './src/screens/SplashScreen';
+
+import { Navigation } from './src/navigation/navigation';
+import { useAuthCheck } from './src/hooks/useLoadApp';
+import { AuthProvider } from './src/context/auth/AuthContext';
 
 function App() {
-  const { isLoading, isLoggedIn } = useLoadApp();
+  const { isLoading, isLoggedIn } = useAuthCheck();
 
-  if (isLoading) {
-    return (
-      <SplashScreen />
-    );
-  }
-
-  return <Navigation theme={MyTheme} initialState={{
-    routes: [
-      { name: isLoggedIn ? "Home" : "Login" }
-    ]
-  }} />
+  return <AuthProvider>
+    <Navigation theme={MyTheme} />
+  </AuthProvider>
 }
 
 const MyTheme = {

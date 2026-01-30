@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { loadUser } from '../services/userStorage';
 
 
-export const useLoadApp = () => {
+export const useAuthCheck = () => {
     const [isLoading, setLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 

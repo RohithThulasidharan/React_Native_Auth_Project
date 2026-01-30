@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 import { View, Text, StatusBar, useColorScheme, Button, Alert } from "react-native";
 import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
-import { loadUser, removeUser } from "../services/userStorage";
+import { loadUser, removeUser } from "../../services/userStorage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../config/navigation";
-
+import { RootStackParamList } from "../../navigation/navigation";
+import { useAuthContext } from "../../context/auth/useAuthContext";
 
 export const HomeScreen: React.FC = () => {
     const safeAreaInsets = useSafeAreaInsets();
@@ -13,6 +13,7 @@ export const HomeScreen: React.FC = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [name, setName] = useState<string>('Guest');
+    const { state, dispatch } = useAuthContext();
     const [isLoading, setIsLoading] = useState(true);
 
     React.useEffect(() => {
@@ -36,7 +37,7 @@ export const HomeScreen: React.FC = () => {
     const logout = async () => {
         await removeUser();
         Alert.alert("Successfully logged out!");
-        navigation.replace("Login");
+        dispatch({ type: 'LOGOUT' })
     }
 
     React.useEffect(() => {
