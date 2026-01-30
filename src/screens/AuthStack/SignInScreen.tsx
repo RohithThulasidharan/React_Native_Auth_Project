@@ -2,13 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { RootStackParamList } from "../../navigation/navigation";
 import { saveUser } from "../../services/userStorage";
 import appStyles from "../../styles/appStyles";
 import { useAuthContext } from "../../context/auth/useAuthContext";
-import { authStyles } from "../../styles/authStyles";
+import { authStyles } from "./authStyles";
 import { AUTH_SCREENS } from "../../constants/screenConstants";
 
 

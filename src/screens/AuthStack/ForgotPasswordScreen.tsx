@@ -1,12 +1,11 @@
 import React, { FC, useState } from "react";
-import { View, Text, SafeAreaView, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import appStyles from "../../styles/appStyles";
-import { authStyles } from "../../styles/authStyles";
+import { authStyles } from "./authStyles";
 
 export const ForgotPasswordScreen: React.FC = () => {
-    const safeAreaInsets = useSafeAreaInsets();
     const [username, setUsername] = useState<string>("");
 
     const showPassword = () => {

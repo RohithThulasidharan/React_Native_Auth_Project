@@ -1,15 +1,13 @@
 import React, { FC, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, TextInput, ActivityIndicator, StyleSheet, Alert } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator, StyleSheet, Alert } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import appStyles from "../../styles/appStyles";
-import { authStyles } from "../../styles/authStyles";
+import { authStyles } from "./authStyles";
 import { useAuthContext } from "../../context/auth/useAuthContext";
 import { saveUser } from "../../services/userStorage";
 
 export const SignUpScreen: React.FC = () => {
-    const safeAreaInsets = useSafeAreaInsets();
-
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [reenteredPassword, setReenteredPassword] = useState<string>("");

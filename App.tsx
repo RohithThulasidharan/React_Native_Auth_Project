@@ -2,11 +2,14 @@ import { DefaultTheme } from '@react-navigation/native';
 
 import { Navigation } from './src/navigation/navigation';
 import { AuthProvider } from './src/context/auth/AuthContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
-  return <AuthProvider>
-    <Navigation theme={MyTheme} />
-  </AuthProvider>
+  return <SafeAreaProvider>
+    <AuthProvider>
+      <Navigation theme={MyTheme} />
+    </AuthProvider>
+  </SafeAreaProvider>
 }
 
 const MyTheme = {
