@@ -11,6 +11,7 @@ import { useAuthCheck } from "../hooks/useLoadApp";
 import { SplashScreen } from "../screens/SplashScreen";
 import { loadUser } from "../services/userStorage";
 import { useAuthContext } from "../context/auth/useAuthContext";
+import { ForgotPasswordScreen } from "../screens/AuthStack/ForgotPasswordScreen";
 
 export const Stack = createNativeStackNavigator();
 
@@ -80,7 +81,7 @@ export const Navigation = ({ theme }: NavigationProps) => {
                     <Stack.Group>
                         <Stack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} />
                         <Stack.Screen name={AUTH_SCREENS.SIGN_UP} component={SignUpScreen} />
-                        <Stack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={SignUpScreen} />
+                        <Stack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
                     </Stack.Group>
                 )
             }

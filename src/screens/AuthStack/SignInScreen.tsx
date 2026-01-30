@@ -6,9 +6,10 @@ import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../../navigation/navigation";
 import { saveUser } from "../../services/userStorage";
-import { APP_SCREENS } from "../../constants/screenConstants";
 import appStyles from "../../styles/appStyles";
 import { useAuthContext } from "../../context/auth/useAuthContext";
+import { authStyles } from "../../styles/authStyles";
+import { AUTH_SCREENS } from "../../constants/screenConstants";
 
 
 export const SignInScreen: React.FC = () => {
@@ -42,19 +43,29 @@ export const SignInScreen: React.FC = () => {
         }, 2000);
     };
 
-    return (<SafeAreaView style={styles.container}>
+    const goToSignUp = () => {
+        navigation.navigate(AUTH_SCREENS.SIGN_UP);
+        console.log('Go to Register');
+    };
+
+    const goToForgotPassword = () => {
+        navigation.navigate(AUTH_SCREENS.FORGOT_PASSWORD);
+        console.log('Go to Register');
+    };
+
+    return (<SafeAreaView style={appStyles.container}>
         { /* Header Section */}
-        <View style={styles.headerContainer}>
-            <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>Sign in to continue</Text>
+        <View style={authStyles.headerContainer}>
+            <Text style={appStyles.title}>Welcome Back</Text>
+            <Text style={appStyles.subtitle}>Sign in to continue</Text>
         </View>
 
         {/* Form Section */}
-        <View style={styles.formContainer}>
-            <View style={styles.inputWrapper}>
-                <Text style={styles.label}>Email</Text>
+        <View style={authStyles.formContainer}>
+            <View style={authStyles.inputWrapper}>
+                <Text style={authStyles.label}>Username</Text>
                 <TextInput
-                    style={styles.input}
+                    style={authStyles.input}
                     placeholder="Enter name"
                     placeholderTextColor="#A0A0A0"
                     autoCapitalize="none"
@@ -65,11 +76,11 @@ export const SignInScreen: React.FC = () => {
             </View>
 
             {/* Password Input */}
-            <View style={styles.inputWrapper}>
-                <Text style={styles.label}>Password</Text>
-                <View style={styles.passwordContainer}>
+            <View style={authStyles.inputWrapper}>
+                <Text style={authStyles.label}>Password</Text>
+                <View style={authStyles.passwordContainer}>
                     <TextInput
-                        style={styles.passwordInput}
+                        style={authStyles.passwordInput}
                         placeholder="••••••••"
                         placeholderTextColor="#A0A0A0"
                         secureTextEntry={true}
@@ -90,97 +101,35 @@ export const SignInScreen: React.FC = () => {
                 {isLoading ? (
                     <ActivityIndicator color="#FFF" />
                 ) : (
-                    <Text style={styles.loginButtonText}>Log In</Text>
+                    <Text style={authStyles.loginButtonText}>Log In</Text>
                 )}
             </TouchableOpacity>
+
+            <Text style={styles.footerText}>
+                New user?{' '}
+                <Text style={styles.registerText} onPress={goToSignUp}>
+                    Register here
+                </Text>
+            </Text>
+
+            <Text style={[styles.registerText, styles.forgotPassword]} onPress={goToForgotPassword}>
+                Forgot password?
+            </Text>
         </View>
     </SafeAreaView>);
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-    },
-    innerContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 24,
-        borderRadius: 20,
-        borderWidth: 2,
-        borderColor: '#444'
-    },
-    headerContainer: {
-        marginTop: 40,
-        marginBottom: 40,
-        paddingHorizontal: 24,
-    },
-    title: {
-        fontSize: 32,
-        fontWeight: '700',
-        color: '#1A1A1A',
-        marginBottom: 8,
-    },
-    subtitle: {
-        fontSize: 16,
-        color: '#666666',
-    },
-    formContainer: {
-        paddingHorizontal: 24,
-        marginBottom: 20,
-    },
-    inputWrapper: {
-        marginBottom: 20,
-    },
-    label: {
+    footerText: {
+        marginTop: 24,
+        color: '#666',
         fontSize: 14,
+    },
+    registerText: {
+        color: '#007BFF',
         fontWeight: '600',
-        color: '#1A1A1A',
-        marginBottom: 8,
     },
-    input: {
-        height: 50,
-        backgroundColor: '#F5F6FA',
-        borderRadius: 12,
-        paddingHorizontal: 16,
-        fontSize: 16,
-        color: '#1A1A1A',
-        borderWidth: 1,
-        borderColor: '#E8E8E8',
-    },
-    passwordContainer: {
-        height: 50,
-        backgroundColor: '#F5F6FA',
-        borderRadius: 12,
-        paddingHorizontal: 16,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#E8E8E8',
-    },
-    passwordInput: {
-        flex: 1,
-        fontSize: 16,
-        color: '#1A1A1A',
-    },
-    loginButton: {
-        height: 56,
-        backgroundColor: '#007AFF',
-        borderRadius: 16,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#007AFF',
-        shadowOffset: {
-            width: 0,
-            height: 4,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-        elevation: 4,
-    },
-    loginButtonText: {
-        color: '#FFFFFF',
-        fontSize: 16,
-        fontWeight: '700',
+    forgotPassword: {
+        marginTop: 12,
     },
 });
