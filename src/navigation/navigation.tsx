@@ -7,7 +7,6 @@ import { ProfileScreen } from "../screens/AppStack/ProfileScreen";
 import { SignInScreen } from "../screens/AuthStack/SignInScreen";
 import { SignUpScreen } from "../screens/AuthStack/SignUpScreen";
 import { APP_SCREENS, AUTH_SCREENS } from "../constants/screenConstants";
-import { useAuthCheck } from "../hooks/useLoadApp";
 import { SplashScreen } from "../screens/SplashScreen";
 import { loadUser } from "../services/userStorage";
 import { useAuthContext } from "../context/auth/useAuthContext";

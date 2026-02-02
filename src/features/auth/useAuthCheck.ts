@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { loadUser } from '../services/userStorage';
+import { loadUser } from '../../services/userStorage';
 
 
 export const useAuthCheck = () => {

@@ -1,13 +1,19 @@
-import React, { FC } from "react";
-import { View, Text } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React, { FC, useState } from "react";
+import { View, Text, StatusBar, useColorScheme } from "react-native";
+import { useSafeAreaInsets, SafeAreaView } from "react-native-safe-area-context";
 
-
+import { useAuthContext } from "../../context/auth/useAuthContext";
+import { loadUser } from "../../services/userStorage";
 
 export const ProfileScreen: React.FC = () => {
-    const safeAreaInsets = useSafeAreaInsets();
+    const isDarkMode = useColorScheme() === 'dark';
+    const { state, dispatch } = useAuthContext();
+    const [isLoading, setIsLoading] = useState(true);
 
-    return (<View>
-        <Text>Your Profile</Text>
-    </View>);
+    return <SafeAreaView>
+        <View>
+            <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+            <Text>Welcome, {state.username}</Text>
+        </View>
+    </SafeAreaView>;
 }

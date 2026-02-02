@@ -62,7 +62,7 @@ export const SignInScreen: React.FC = () => {
 
         {/* Form Section */}
         <View style={authStyles.formContainer}>
-            <View style={authStyles.inputWrapper}>
+            <View style={[authStyles.inputWrapper]}>
                 <Text style={authStyles.label}>Username</Text>
                 <TextInput
                     style={authStyles.input}
