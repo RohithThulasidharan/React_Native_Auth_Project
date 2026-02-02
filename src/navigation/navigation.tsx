@@ -74,12 +74,12 @@ export const Navigation = ({ theme }: NavigationProps) => {
                 < Stack.Screen name={APP_SCREENS.SPLASH} component={SplashScreen} />
             ) :
                 state.token ? (
-                    <Stack.Group screenOptions={{ headerShown: false }}>
+                    <Stack.Group>
                         <Stack.Screen name={APP_SCREENS.HOME} component={HomeScreen} />
                         <Stack.Screen name={APP_SCREENS.PROFILE} component={ProfileScreen} />
                     </Stack.Group>
                 ) : (
-                    <Stack.Group>
+                    <Stack.Group screenOptions={{ headerShown: false }}>
                         <Stack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} />
                         <Stack.Screen name={AUTH_SCREENS.SIGN_UP} component={SignUpScreen} />
                         <Stack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
