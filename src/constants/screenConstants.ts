@@ -4,8 +4,12 @@ export const AUTH_SCREENS = {
     FORGOT_PASSWORD: 'ForgotPassword'
 };
 
+export const APP_DRAWERS = {
+    HOME: "Home",
+    PROFILE: "Profile"
+}
 export const APP_SCREENS = {
     HOME: 'Home',
-    PROFILE: 'Profile',
+    DETAIL: 'Detail',
     SPLASH: 'Splash'
 };
