@@ -66,6 +66,8 @@ export const Navigation = ({ theme }: NavigationProps) => {
         fetchData();
     }, []);
 
+    // Recommended by React Navigation docs to use the Groups directly under one stack navigator rather than creating
+    // 2 different stack navigators and conditionally using them.
     return (<NavigationContainer theme={theme}>
         <Stack.Navigator>
             {isLoading ? (
@@ -73,7 +75,7 @@ export const Navigation = ({ theme }: NavigationProps) => {
             ) :
                 state.token ? (
                     <Stack.Group screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name={APP_SCREENS.HOME} component={HomeScreen} options={{ headerShown: true }} />
+                        <Stack.Screen name={APP_SCREENS.HOME} component={HomeScreen} />
                         <Stack.Screen name={APP_SCREENS.PROFILE} component={ProfileScreen} />
                     </Stack.Group>
                 ) : (
