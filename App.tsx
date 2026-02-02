@@ -1,30 +1,23 @@
 import { DefaultTheme } from '@react-navigation/native';
-import { Navigation } from './src/config/navigation';
-import { useLoadApp } from './src/hooks/useLoadApp';
-import { SplashScreen } from './src/screens/SplashScreen';
+
+import { Navigation } from './src/navigation/navigation';
+import { AuthProvider } from './src/context/auth/AuthContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
-  const { isLoading, isLoggedIn } = useLoadApp();
-
-  if (isLoading) {
-    return (
-      <SplashScreen />
-    );
-  }
-
-  return <Navigation theme={MyTheme} initialState={{
-    routes: [
-      { name: isLoggedIn ? "Home" : "Login" }
-    ]
-  }} />
+  return <SafeAreaProvider>
+    <AuthProvider>
+      <Navigation theme={MyTheme} />
+    </AuthProvider>
+  </SafeAreaProvider>
 }
 
 const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: 'rgb(140, 201, 125)',
-    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(255, 255, 255)',
+    primary: 'rgb(28, 37, 197)',
   },
 };
 
