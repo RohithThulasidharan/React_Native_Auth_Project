@@ -1,11 +1,11 @@
 import React from "react";
 import { FlatList } from "react-native";
 
-import { Post } from "../../features/posts/useGetPosts";
+import { Post } from "../features/posts/useGetPosts";
 import PostCard from "./PostCard";
 import { useNavigation } from "@react-navigation/native";
-import { APP_SCREENS } from "../../constants/screenConstants";
-import { RootStackParamList } from "../../navigation/navigation";
+import { APP_SCREENS } from "../constants/screenConstants";
+import { RootStackParamList } from "../navigation/navigation";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type PostsListProps = {

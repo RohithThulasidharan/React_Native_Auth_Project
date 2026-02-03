@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Post } from '../../features/posts/useGetPosts';
+import { Post } from '../features/posts/useGetPosts';
 
 type PostCardProps = Post & {
     onPress?: () => void;

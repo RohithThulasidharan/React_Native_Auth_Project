@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { axiosClient } from "../../api_services/apiService";
 import { Result } from "../../types/result";
 import { API_PATHS } from "../../api_services/api";
+import { useAuthContext } from "../../context/auth/useAuthContext";
 
 export async function getPosts(signal: AbortSignal): Promise<Result<Post[]>> {
     try {
@@ -27,6 +28,7 @@ export const useGetPosts = () => {
     const [posts, setPosts] = useState(<Post[]>[]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const { state, dispatch } = useAuthContext();
 
     useEffect(() => {
         const controller = new AbortController();
@@ -40,6 +42,11 @@ export const useGetPosts = () => {
             }
 
             setPosts(result.data);
+            const fetchedPosts = result.data;
+            if (fetchedPosts) {
+                dispatch({ type: 'SET_POSTS', payload: fetchedPosts });
+
+            }
             setLoading(false);
         }
 

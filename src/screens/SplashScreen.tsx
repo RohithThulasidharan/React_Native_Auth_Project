@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, Image, StyleSheet, ImageBackground, Text } from 'react-native';
-import TempImage from '../assets/1010049.jpg';
 
+import { Images } from '../assets/Images';
 
 export const SplashScreen: React.FC = () => {
     return (
         <View style={styles.container}>
             {/* 1. Background Blurred Image */}
             <ImageBackground
-                source={TempImage}
+                source={Images.SPLASH}
                 style={StyleSheet.absoluteFill}
                 blurRadius={20} // This is your Layer Blur
             >
@@ -19,7 +19,7 @@ export const SplashScreen: React.FC = () => {
             {/* 3. Foreground Content */}
             <View style={styles.content}>
                 <Image
-                    source={TempImage}
+                    source={Images.SPLASH}
                     style={styles.profileImage}
                 />
 
