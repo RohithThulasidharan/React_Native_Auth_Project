@@ -2984,6 +2984,7 @@ __metadata:
     prettier: 2.8.8
     react: 19.2.0
     react-native: 0.83.1
+    react-native-device-info: ^15.0.1
     react-native-gesture-handler: ^2.30.0
     react-native-reanimated: ^4.2.1
     react-native-safe-area-context: ^5.6.2
@@ -7809,6 +7810,15 @@ __metadata:
   version: 19.2.3
   resolution: "react-is@npm:19.2.3"
   checksum: 3bb317292dc574632ec33093d38b8ff97abb6dc400e7b0375baef9429f148cf5ae0307e37de97358f3fad07edd159cda8fcb9d28aaaf0dcd8d408ee320638b83
+  languageName: node
+  linkType: hard
+
+"react-native-device-info@npm:^15.0.1":
+  version: 15.0.1
+  resolution: "react-native-device-info@npm:15.0.1"
+  peerDependencies:
+    react-native: "*"
+  checksum: e7c20006db07758fcf820e891b979b9d7e87c10b6a38066402d60d85ff1dc8e1ac47e8b57209bf394f20516fb49600cde6688cd6f7cfe7210f285555960a74e4
   languageName: node
   linkType: hard
 

@@ -4,10 +4,13 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from "react-na
 
 import { useAuthContext } from "../context/auth/useAuthContext";
 import { removeUser } from "../services/userStorage";
+import DeviceInfo from "react-native-device-info";
 
 export const CustomDrawerContent = (props: any) => {
     const navigation = useNavigation();
     const { dispatch } = useAuthContext();
+    const appVersion = DeviceInfo.getVersion();
+    const buildNumber = DeviceInfo.getBuildNumber();
 
     const logout = async () => {
         await removeUser();
@@ -27,12 +30,13 @@ export const CustomDrawerContent = (props: any) => {
             </DrawerContentScrollView>
 
             <View style={styles.logoutContainer}>
-                <DrawerItem
-                    label="Logout"
+                <TouchableOpacity
                     style={styles.logoutItem}
-                    labelStyle={styles.logoutLabel}
                     onPress={logout}
-                />
+                >
+                    <Text style={styles.logoutLabel}>Logout</Text>
+                </TouchableOpacity>
+                <Text style={styles.versionLabel}>{appVersion}.{buildNumber}</Text>
             </View>
         </View>
     );
@@ -62,6 +66,7 @@ const styles = StyleSheet.create({
     logoutItem: {// This is for touch area
         width: '60%',
         justifyContent: 'center',
+        paddingBottom: 10,
     },
     logoutLabel: {//This is for the text
         textAlign: 'center',
@@ -69,4 +74,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'crimson',
     },
+    versionLabel: {
+        textAlign: 'center',
+        fontFamily: 'Poppins-SemiBold',
+        fontSize: 10,
+        color: 'grey',
+    }
 });

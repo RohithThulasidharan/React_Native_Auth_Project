@@ -67,6 +67,9 @@ export type RootStackParamList = {
     [APP_SCREENS.DETAIL]: { postId: number };
 }
 
+export type AuthStackParamList = StaticParamList<typeof AuthStack>;
+
+
 type NavigationProps = {
     theme: Theme;
 };
@@ -102,8 +105,8 @@ export const Navigation = ({ theme }: NavigationProps) => {
             <AppStack />
         ) : (
             <AuthStack.Navigator>
-                <AuthStack.Group screenOptions={{ headerShown: false }}>
-                    <AuthStack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} />
+                <AuthStack.Group >
+                    <AuthStack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} options={{ headerShown: false }} />
                     <AuthStack.Screen name={AUTH_SCREENS.SIGN_UP} component={SignUpScreen} />
                     <AuthStack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
                 </AuthStack.Group>

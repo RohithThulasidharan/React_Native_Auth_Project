@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { RootStackParamList } from "../../navigation/navigation";
+import { AuthStackParamList, RootStackParamList } from "../../navigation/navigation";
 import { saveUser } from "../../services/userStorage";
 import appStyles from "../../styles/appStyles";
 import { useAuthContext } from "../../context/auth/useAuthContext";
@@ -19,7 +19,7 @@ export const SignInScreen: React.FC = () => {
 
     const { state, dispatch } = useAuthContext();
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 
     const handleLogin = async () => {
         if (!username || !password) {
