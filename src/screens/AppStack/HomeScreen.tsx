@@ -16,22 +16,8 @@ export const HomeScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { posts, loading, error } = useGetPosts();
 
-    const logout = async () => {
-        await removeUser();
-        Alert.alert("Successfully logged out!");
-        dispatch({ type: 'LOGOUT' })
-    }
-
-    React.useEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <Button onPress={logout} title="Log out" />
-            ),
-        });
-    }, [navigation]);
-
     return (
-        <SafeAreaView>
+        <SafeAreaView edges={['right', 'bottom', 'left']}>
             <PostsList posts={posts} />
         </SafeAreaView>
     );

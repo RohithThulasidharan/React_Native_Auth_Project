@@ -9,7 +9,7 @@ export const DetailScreen: React.FC = () => {
     const { state, dispatch } = useAuthContext();
     const [isLoading, setIsLoading] = useState(true);
 
-    return <SafeAreaView>
+    return <SafeAreaView edges={['right', 'bottom', 'left']}>
         <View>
             <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
             <Text>Welcome, {state.username}</Text>
