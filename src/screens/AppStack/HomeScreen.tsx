@@ -16,6 +16,12 @@ export const HomeScreen: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { posts, loading, error } = useGetPosts();
 
+    useEffect(() => {
+        if (posts) {
+            dispatch({ type: 'SET_POSTS', payload: posts });
+        }
+    }, [posts, dispatch]);
+
     return (
         <SafeAreaView edges={['right', 'bottom', 'left']}>
             <PostsList posts={posts} />

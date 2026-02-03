@@ -1,6 +1,9 @@
+import { Post } from "../../features/posts/useGetPosts";
+
 export interface AuthState {
     username: string | null;
     token: string | null;
+    posts: Post[];
 }
 
 export type AuthAction =
@@ -17,3 +20,4 @@ export type AuthAction =
         }
     }
     | { type: 'LOGOUT' }
+    | { type: 'SET_POSTS'; payload: Post[] }
