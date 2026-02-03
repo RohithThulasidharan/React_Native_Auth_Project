@@ -79,8 +79,8 @@ export const Navigation = ({ theme }: NavigationProps) => {
                         <Stack.Screen name={APP_SCREENS.PROFILE} component={ProfileScreen} />
                     </Stack.Group>
                 ) : (
-                    <Stack.Group screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} />
+                    <Stack.Group >
+                        <Stack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} options={{ headerShown: false }}/>
                         <Stack.Screen name={AUTH_SCREENS.SIGN_UP} component={SignUpScreen} />
                         <Stack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
                     </Stack.Group>
