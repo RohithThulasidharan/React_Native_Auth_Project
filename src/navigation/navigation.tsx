@@ -16,37 +16,55 @@ import { DetailScreen } from "../screens/AppStack/DetailScreen";
 import { CustomDrawerContent } from "./drawerComponent";
 
 const AuthStack = createNativeStackNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator();
 
-const HomeStack = () => {
+// Nesting Drawer inside the Stack instead of the other way around. Called "RootStack"method.
+// Done so that the Detail screen can be shown as a Screen over the Drawer, maintaining the drawer
+// Without having to deal with the Stack Header coming below the Drawer on the top left.
+const AppStack = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerStyle: { backgroundColor: '#f4511e' },
+                headerStyle: { backgroundColor: 'rgb(28, 37, 197)' },
                 headerTintColor: '#fff',
                 headerTitleStyle: { fontWeight: 'bold' },
             }}
         >
             <Stack.Screen
-                name={APP_SCREENS.HOME}
-                component={HomeScreen}
+                name={APP_SCREENS.DRAWER_ROOT}
+                component={DrawerGroup}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
                 name={APP_SCREENS.DETAIL}
                 component={DetailScreen}
+                initialParams={{ postId: undefined as number | undefined }}
             />
         </Stack.Navigator>
     );
 };
+const DrawerGroup = () => {
+    return (
+        <Drawer.Navigator
+            screenOptions={{
+                drawerLabelStyle: { fontFamily: 'Poppins-Bold', fontSize: 16 },
+                drawerActiveTintColor: 'rgb(28, 37, 197)',
+                drawerInactiveTintColor: '#474646',
+            }}
+            drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+            {/* The Home Screen lives directly here now */}
+            <Drawer.Screen name={APP_DRAWERS.HOME} component={HomeScreen} />
+            <Drawer.Screen name={APP_DRAWERS.PROFILE} component={ProfileScreen} />
+        </Drawer.Navigator>
+    );
+};
 
-export type RootStackParamList = StaticParamList<typeof Stack>;
-
-declare global {
-    namespace ReactNavigation {
-        interface RootParamList extends RootStackParamList { }
-    }
+export type RootStackParamList = {
+    [APP_SCREENS.SPLASH]: undefined;
+    [APP_SCREENS.DRAWER_ROOT]: undefined;
+    [APP_SCREENS.DETAIL]: { postId: number };
 }
 
 type NavigationProps = {
@@ -74,37 +92,23 @@ export const Navigation = ({ theme }: NavigationProps) => {
         fetchData();
     }, []);
 
-    // Recommended by React Navigation docs to use the Groups directly under one stack navigator rather than creating
-    // 2 different stack navigators and conditionally using them.
+    // Render Splash directly to avoid Navigator nesting errors since its not part of both stacks
+    if (isLoading) {
+        return <SplashScreen />;
+    }
+
     return (<NavigationContainer theme={theme}>
-        {isLoading ? (
-            < Stack.Screen name={APP_SCREENS.SPLASH} component={SplashScreen} />
-        ) :
-            state.token ? (
-                <Drawer.Navigator
-                    initialRouteName={APP_DRAWERS.LANDING}
-                    drawerContent={(props) => <CustomDrawerContent {...props} />}
-                    screenOptions={{
-                        drawerLabelStyle: {
-                            fontFamily: 'Poppins-Bold',
-                            fontSize: 16,
-                        },
-                        drawerActiveTintColor: 'rgb(28, 37, 197)',
-                        drawerInactiveTintColor: '#474646',
-                    }}
-                >
-                    <Drawer.Screen name={APP_DRAWERS.LANDING} component={HomeStack} />
-                    <Drawer.Screen name={APP_DRAWERS.PROFILE} component={ProfileScreen} />
-                </Drawer.Navigator>
-            ) : (
-                <AuthStack.Navigator>
-                    <Stack.Group screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} />
-                        <Stack.Screen name={AUTH_SCREENS.SIGN_UP} component={SignUpScreen} />
-                        <Stack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
-                    </Stack.Group>
-                </AuthStack.Navigator>
-            )
+        {state.token ? (
+            <AppStack />
+        ) : (
+            <AuthStack.Navigator>
+                <AuthStack.Group screenOptions={{ headerShown: false }}>
+                    <AuthStack.Screen name={AUTH_SCREENS.LOGIN} component={SignInScreen} />
+                    <AuthStack.Screen name={AUTH_SCREENS.SIGN_UP} component={SignUpScreen} />
+                    <AuthStack.Screen name={AUTH_SCREENS.FORGOT_PASSWORD} component={ForgotPasswordScreen} />
+                </AuthStack.Group>
+            </AuthStack.Navigator>
+        )
         }
     </NavigationContainer >
     );
