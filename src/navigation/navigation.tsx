@@ -13,6 +13,7 @@ import { loadUser } from "../services/userStorage";
 import { useAuthContext } from "../context/auth/useAuthContext";
 import { ForgotPasswordScreen } from "../screens/AuthStack/ForgotPasswordScreen";
 import { DetailScreen } from "../screens/AppStack/DetailScreen";
+import { CustomDrawerContent } from "./drawerComponent";
 
 const AuthStack = createNativeStackNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,7 +39,7 @@ const HomeStack = () => {
             />
         </Stack.Navigator>
     );
-}
+};
 
 export type RootStackParamList = StaticParamList<typeof Stack>;
 
@@ -80,8 +81,19 @@ export const Navigation = ({ theme }: NavigationProps) => {
             < Stack.Screen name={APP_SCREENS.SPLASH} component={SplashScreen} />
         ) :
             state.token ? (
-                <Drawer.Navigator >
-                    <Drawer.Screen name={APP_DRAWERS.HOME} component={HomeStack} />
+                <Drawer.Navigator
+                    initialRouteName={APP_DRAWERS.LANDING}
+                    drawerContent={(props) => <CustomDrawerContent {...props} />}
+                    screenOptions={{
+                        drawerLabelStyle: {
+                            fontFamily: 'Poppins-Bold',
+                            fontSize: 16,
+                        },
+                        drawerActiveTintColor: 'rgb(28, 37, 197)',
+                        drawerInactiveTintColor: '#474646',
+                    }}
+                >
+                    <Drawer.Screen name={APP_DRAWERS.LANDING} component={HomeStack} />
                     <Drawer.Screen name={APP_DRAWERS.PROFILE} component={ProfileScreen} />
                 </Drawer.Navigator>
             ) : (

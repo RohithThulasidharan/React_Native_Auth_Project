@@ -5,7 +5,7 @@ export const AUTH_SCREENS = {
 };
 
 export const APP_DRAWERS = {
-    HOME: "Home",
+    LANDING: "Landing",
     PROFILE: "Profile"
 }
 export const APP_SCREENS = {

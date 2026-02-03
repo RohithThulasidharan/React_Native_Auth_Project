@@ -31,7 +31,8 @@ export const HomeScreen: React.FC = () => {
     }, [navigation]);
 
     return (
-
-        <PostsList posts={posts} />
+        <SafeAreaView>
+            <PostsList posts={posts} />
+        </SafeAreaView>
     );
 }
